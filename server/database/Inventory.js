@@ -30,7 +30,7 @@ const Inventory = sequelize.define("Inventory", {
 
     status: {
         type: DataTypes.STRING,
-        defaultValue: true
+        defaultValue: "Исправен"
     }
 })
 

@@ -1,0 +1,14 @@
+.ValidationError-container{
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #fc4e4e;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ValidationError-title{
+    font-size: 20px;
+    color: #fc4e4e;
+    font-weight: 600;
+}

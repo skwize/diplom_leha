@@ -1,0 +1,21 @@
+.ActionButton{
+    height: 40px;
+    padding: 0 15px;
+    background-color: #468dff;
+    color: #fff;
+    font-size: 20px;
+    line-height: 30px;
+    border: none;
+    border-radius: 10px;
+    transition: .12s ease-in-out;
+}
+
+.ActionButton:hover{
+    cursor: pointer;
+    background-color: #3f7ee3;
+}
+
+.ActionButton:disabled{
+    cursor: not-allowed;
+    background-color: #a0a0a0;
+}

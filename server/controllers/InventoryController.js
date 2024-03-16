@@ -51,13 +51,21 @@ async function GetObjectsFromInventory (req, res) {
 
 async function DeleteObjectFromInventory (req, res) {
 
-    const invObject = await Inventory.findByPk(req.params.id);
+    const invObject = await Inventory.findAll({
+        where: {
+            id: req.body.id
+        }
+    });
 
-    if(!invObject) return res.status(404).json("Объект не найден");
+    if(invObject.length === 0) return res.status(404).json("Объекты не найдены");
 
-    const isDeleted = await invObject.destroy();
+    const isDeleted = await Inventory.destroy({
+        where: {
+            id: req.body.id
+        }
+    });
 
-    if (!isDeleted) return res.status(500).json("Не удалось удалить объект");
+    if (!isDeleted) return res.status(500).json("Не удалось удалить объекты");
 
     return res.status(200).json("Объект удален");
 }
