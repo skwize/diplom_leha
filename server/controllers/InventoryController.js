@@ -11,12 +11,13 @@ async function AddObjectToInventory (req, res) {
         inventory_number: inventory_number,
         position: position,
         status: status
-    }).catch(()=> {
+    });
+
+    if(!newObject){
         return res.status(500).json("Ошибка!");
-    })
+    }
 
-    return res.status(201).json(newObject);
-
+    return res.status(201).json(newObject)
 
 }
 

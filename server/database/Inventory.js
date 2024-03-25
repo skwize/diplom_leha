@@ -28,6 +28,16 @@ const Inventory = sequelize.define("Inventory", {
         allowNull: true
     },
 
+    responsible: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    resPhone: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
     status: {
         type: DataTypes.STRING,
         defaultValue: "Исправен"
