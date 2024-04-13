@@ -9,7 +9,7 @@
 .DataTable{
     border-left: 2px solid #d5d5d5;
     border-right: 2px solid #d5d5d5;
-    z-index: -1;
+    z-index: 0;
 }
 
 .DataTable-top {

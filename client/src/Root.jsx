@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import DataTable, { defaultThemes } from "react-data-table-component";
 import Header from "./components/Header";
 import ActionButton from "./components/ActionButton";
@@ -7,6 +7,8 @@ import Cookies from "js-cookie";
 import { redirect } from "react-router-dom"
 import AddObjectToTableModal from "./components/AddObjectToTableModal";
 import EditObjectModal from "./components/EditObjectModal";
+import CreateNewUserModal from "./components/CreateNewUserModal";
+import { ShowAddUserModalContext } from "./Context/ShowModalContext";
 
 export function loader () {
   const authorized = Cookies.get("DolgovAuthorized");
@@ -60,6 +62,13 @@ const conditionalRowStyle = [
       backgroundColor: "#fc6060",
       color: "#fff"
     }
+  },
+  {
+    when: row => row.status === "Списан",
+    style: {
+      backgroundColor: "#4a4a4a",
+      color: "#fff"
+    }
   }
 ]
 
@@ -83,6 +92,14 @@ const columns = [
   {
     name: "Местоположение",
     selector: row => row.position
+  },
+  {
+    name: "Ответственный",
+    selector: row => row.responsible
+  },
+  {
+    name: "Номер телефона",
+    selector: row => row.resPhone
   },
   {
     name: "Статус",
@@ -113,6 +130,7 @@ function Root() {
   const [ShowAddModal, setShowAddModal] = useState(false);
   const [ShowEditModal, setShowEditModal] = useState(false);
   const [DisableBtn, setDisableBtn] = useState(true);
+  const {ShowAddUserModal, HideUserModal} = useContext(ShowAddUserModalContext);
 
   useEffect(()=>{
     async function getInventoryData () {
@@ -152,8 +170,9 @@ function Root() {
   }
 
   async function AddObjectToTable(data){
+
     const query = await fetch("http://localhost:8000/inventory/add",{
-      method: 'POST',
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
@@ -215,6 +234,24 @@ function Root() {
     return;
   }
 
+  const CreateUser = async (data) => {
+    const query = await fetch("http://localhost:8000/users/create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    const response = await query.json();
+
+    if(response === "Ошибка создания пользователя"){
+        return alert(response);
+    }
+
+    alert("Пользователь создан!")
+    return HideUserModal();
+}
   
 
   return (
@@ -249,6 +286,7 @@ function Root() {
         </div>
         <AddObjectToTableModal isVisible={ShowAddModal} SubmitHandle={AddObjectToTable} cancelHandle={hideAddModal}/>
         <EditObjectModal isVisible={ShowEditModal} DataContext={{...SelectedRows[0]}} SubmitHandle={ChangeObjectData} cancelHandle={hideEditModal}/>
+        <CreateNewUserModal isVisible={ShowAddUserModal} SubmitHandle={CreateUser} cancelHandle={HideUserModal}/>
       </div>
     </>
   );

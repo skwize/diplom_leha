@@ -22,6 +22,10 @@ const SignIn = () => {
             body: JSON.stringify(data)
         });
 
+        if (response.status !== 200){
+            return alert("Не правильный логин или пароль");
+        }
+
         const authorized = await response.json();
 
         Cookies.set("DolgovAuthorized", authorized.authorized);

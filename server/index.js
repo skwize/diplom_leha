@@ -26,7 +26,7 @@ app.use((req, res, next)=> {
 
 async function SyncDbModels () {
     await UserModel.sync({alter: true});
-    await InventoryModel.sync({alter: true});
+    await InventoryModel.sync({force: true});
 }
 
 async function Connection () {

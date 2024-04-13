@@ -11,6 +11,8 @@ const EditObjectModal = ({DataContext, SubmitHandle, cancelHandle, isVisible}) =
     const [inventory_type, setInventoryType] = useState("");
     const [inventory_number, setInventoryNumber] = useState("");
     const [position, setPosition] = useState("");
+    const [responsible, setResponsible] = useState("");
+    const [ResPhone, setResPhone] = useState("");
     const [status, setStatus] = useState("");
     
     useEffect(()=>{
@@ -37,6 +39,14 @@ const EditObjectModal = ({DataContext, SubmitHandle, cancelHandle, isVisible}) =
         setPosition(event.target.value);
     }
 
+    function onResponsibleChange(event){
+        setResponsible(event.target.value);
+    }
+
+    function onResPhoneChange(event){
+        setResPhone(event.target.value);
+    }
+
     function onStatusChange(event){
         setStatus(event.target.value);
     }
@@ -51,9 +61,12 @@ const EditObjectModal = ({DataContext, SubmitHandle, cancelHandle, isVisible}) =
                     <input {...register("inventory_type")} placeholder="Тип" required={true} className="modal-input" onChange={onTypeChange} value={inventory_type}/>
                     <input {...register("inventory_number")} placeholder="Инвентарный номер" required={true} className="modal-input" onChange={onNumberChange} value={inventory_number}/>
                     <input {...register("position")} placeholder="Местоположение" className="modal-input" onChange={onPositionChange} value={position}/>
+                    <input {...register("responsible")} placeholder="ФИО ответственного" className="modal-input" onChange={onResponsibleChange} value={responsible}/>
+                    <input {...register("resPhone")} placeholder="Номер телефона ответственного" className="modal-input" onChange={onResPhoneChange} value={ResPhone}/>
                     <select {...register("status")} className="modal-select" required={true} onChange={onStatusChange} value={status}>
                         <option value="Исправен">Исправен</option>
                         <option value="Не исправен">Не исправен</option>
+                        <option value="Списан">Списан</option>
                     </select>
                     <div className="form-btns">
                         <input type="submit" value="Изменить" className="form-submit"/>
